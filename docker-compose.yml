@@ -1,5 +1,21 @@
 version: "3.9"
 services:
+  streamlit:
+    image: streamlit:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: streamlit_container
+    depends_on:
+      - mysql
+    ports:
+      - "8501:8501"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: userpassword
+      DB_NAME: ResumeDB
   mysql:
     image: mysql:8.0
     container_name: resume_mysql
@@ -14,20 +30,5 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-  streamlit:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: streamlit_container
-    depends_on:
-      - mysql
-    ports:
-      - "8501:8501"
-    environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: "user"
-      DB_PASSWORD: "userpassword"
-      DB_NAME:  "ResumeDB"
 volumes:
   mysql_data:
