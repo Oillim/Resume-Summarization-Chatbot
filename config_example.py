@@ -1,0 +1,12 @@
+OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
+LANGCHAIN_TRACING_V2= "true"
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
+LANGCHAIN_API_KEY="YOUR LANGCHAIN_API_KEY"
+LANGCHAIN_PROJECT="YOUR LANGCHAIN_PROJECT"
+DB_CONFIG = {
+    "host": "YOUR_HOST",
+    "user": "USER NAME",
+    "password": "PASSWORD",
+    "database": "DATABASE NAME",
+    "port": "PORT"  # New port
+}

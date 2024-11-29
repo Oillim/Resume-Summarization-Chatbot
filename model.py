@@ -1,5 +1,4 @@
 import openai
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langsmith.wrappers import wrap_openai
@@ -8,15 +7,15 @@ from database import Database
 from langchain_community.utilities import SQLDatabase
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-
-load_dotenv()
+from config import OPENAI_API_KEY
 
 class Model:
     def __init__(self):
-        self.client = wrap_openai(openai.Client())
-        self.model = ChatOpenAI(model='gpt-3.5-turbo')
+        openai.api_key = OPENAI_API_KEY
+        #self.client = wrap_openai(openai.Client(api_key=OPENAI_API_KEY))
+        self.model = ChatOpenAI(model='gpt-3.5-turbo', api_key=OPENAI_API_KEY)
         self.db = Database()
-        self.db_uri = "mysql+mysqlconnector://root:rootpassword@127.0.0.1:3306/ResumeDB"
+        self.db_uri = "mysql+mysqlconnector://root:rootpassword@mysql:3306/ResumeDB"
         self.load_db = SQLDatabase.from_uri(self.db_uri)
     def process_with_openai(self, resume):
         template = """
